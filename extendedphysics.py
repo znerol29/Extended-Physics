@@ -1,3 +1,6 @@
+# Set title for filedialog and add instructions
+# Finish def restore(), Maybe use restore(Variable)
+
 import os
 import sys
 import tkinter as tk
@@ -8,23 +11,59 @@ import time
 root = tk.Tk()
 root.withdraw()
 
-initial_dir = "D:/Steam/steamapps/common/assettocorsa/content/tracks"
-
+# Set operating directory
 if len(sys.argv) > 1:
-  # If CM Argument given use it
-    directory = sys.argv[1]
+  # Use CM Argument if given
+    directory= sys.argv[1]
 else:
-  # Else open file dialog
-    directory = filedialog.askdirectory(initialdir=initial_dir)
+  os.chdir()
+  if os.path.isfile("acpath.txt"):
+    # Use saved initial path if possible
+    with open("acpath.txt", "r") as f:
+      if len(f.read()) >= 1:
+        acpath = f.read().strip()
+  else:
+    # Ask for AC directory
+    acpath = filedialog.askdirectory()
+    if acpath:
+      with open("acpath.txt", "w") as f:
+        f.write(acpath)
+  # Open filedialog in AC directory and ask for track path
+  directory = filedialog.askdirectory(initialdir=acpath)
 
 os.chdir(directory)
 
+restorecount = 0
+backupcount = 0
+nobackup = 0
+errorcount = 0
+
+def rename():
+  if os.path.isfile("surfaces - Kopie.ini")
+  os.rename("surfaces - Kopie.ini", "surfaces-backup.ini")
+
+def restore():
+  if os.path.isfile("surfaces.ini"):
+    with open("surfaces.ini", "r") as f:
+      if "extended" in f.read():
+        if os.path.isfile("surfaces-backup.ini"):
+          with open("surfaces-backup.ini") as f2:
+            contents = f2.read()
+          with open("surfaces.ini") as f3:
+            f3.write(contents)
+          restorecount += 1
+      else:
+        if not os.path.isfile("surfaces-backup.ini"):
+          try:
+            shutil.copy(directory
+
 if os.path.isdir("data"):
     os.chdir(directory + "\data")
-# If only one layout for track => Dir "\data" in top folder
+# If only one layout for track (Dir "\data" in top folder)
     if os.path.isfile("surfaces.ini"):
         with open("surfaces.ini", "r") as f:
             if "extended" in f.read():
+              rename()
                 if os.path.isfile("surfaces - Kopie.ini"):
                     with open("surfaces - Kopie.ini", "r") as f2:
                         contents = f2.read()
@@ -46,10 +85,7 @@ if os.path.isdir("data"):
 
 else:
   # Else restore for all layouts
-    restorecount = 0
-    backupcount = 0
-    nobackup = 0
-    errorcount = 0
+
     for root, dirs, files in os.walk(directory):
         if "surfaces.ini" in files:
             os.chdir(root)
