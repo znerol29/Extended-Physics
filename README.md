@@ -12,5 +12,3 @@ Manual:
 1. Enter your AC install directory (Will be saved in a seperate file)
 2. Select the track you want to drive
 3. Drive
-
-License: MIT
