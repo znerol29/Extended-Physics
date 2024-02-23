@@ -1,4 +1,4 @@
-##AC Extended Physics
+**AC Extended Physics**
 
 Simple python script to backup and restore the surfaces.ini files of Assetto Corsa Tracks.
 I personally had a problem with Assetto Corsa applying extended physics to every track when opening it,
@@ -12,3 +12,5 @@ Manual:
 1. Enter your AC install directory (Will be saved in a seperate file)
 2. Select the track you want to drive
 3. Drive
+
+License: MIT
